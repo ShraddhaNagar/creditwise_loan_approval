@@ -15,9 +15,13 @@ score = st.number_input("Credit Score", min_value=0, max_value=900)
 dti = st.slider("DTI Ratio", 0.0, 1.0, 0.3)
 
 if st.button("Predict"):
-    # Prepare data for prediction
-    input_data = pd.DataFrame([[income, score, dti]], columns=['ApplicantIncome', 'CreditScore', 'DTI_Ratio'])
+    # Sirf list format mein data bhejna hai taaki error na aaye
+    input_data = [[income, score, dti]]
+    
+    # Scaling the data
     input_scaled = scaler.transform(input_data)
+    
+    # Prediction
     prediction = model.predict(input_scaled)
     
     if prediction[0] == 1:
